@@ -1,4 +1,4 @@
--- 1. Querey Top Selling Chocolate
+-- 1. Query Top Selling Chocolate
 
 SELECT `Chocolate Table`.`Name` AS 'Chocolate_Name', SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Sold'
 FROM `Chocolate Table`
@@ -6,7 +6,7 @@ JOIN `Orders Table` ON `Chocolate Table`.`Chocolate_ID` = `Orders Table`.`Chocol
 GROUP BY  `Chocolate Table`.`Name`
 ORDER BY 'Total_Quantity_Sold' DESC;
 
--- 2. Querey Top Selling Customer
+-- 2. Query Top Selling Customer
 
 SELECT `Customer Table`.`Customer_ID`, 
 		CONCAT(`Customer Table`.`First_Name`, ' ', `Customer Table`.`Last_Name`) AS 'Customer_Name', 
@@ -87,7 +87,7 @@ FROM `Orders Table`
 WHERE `Customer_ID` = 11111
 ORDER BY `Order_Date` DESC;
 
--- 10.Query For The Chocolate Shop Transaction:
+-- 11.Query For The Chocolate Shop Transaction:
 
 -- BEGIN TRANSACTION;
 
