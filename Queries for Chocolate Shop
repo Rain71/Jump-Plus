@@ -62,7 +62,7 @@ GROUP BY `Customer_ID`
 ORDER BY 'Total_Amount_Spent' DESC
 LIMIT 1;
 
--- 9.Total Revenue Generated Over A Specific Period Query
+-- 9.Query to Get Total Revenue Generated Over A Specific Period:
 
 SELECT SUM(`Total_Price_Sold`) AS 'Total_Revenue'
 FROM `Orders Table`
