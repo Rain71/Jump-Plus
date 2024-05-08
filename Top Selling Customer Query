@@ -1,0 +1,7 @@
+SELECT `Customer Table`.`Customer_ID`, 
+		CONCAT(`Customer Table`.`First_Name`, ' ', `Customer Table`.`Last_Name`) AS 'Customer_Name', 
+		SUM(`Orders Table`.`Total_Price_Sold`) AS 'Total_Spent'
+FROM `Customer Table` 
+JOIN `Orders Table` ON `Customer Table`.`Customer_ID` = `Orders Table`.`Customer_ID`
+GROUP BY `Customer Table`.`Customer_ID`, 'Customer_Name'
+ORDER BY 'Total_Spent' DESC;
