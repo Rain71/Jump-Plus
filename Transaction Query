@@ -1,0 +1,14 @@
+-- BEGIN TRANSACTION;
+
+-- Decrease product quantity
+UPDATE `Chocolate Table`
+SET `Chocolate Table`.`Quantity_Available` = `Chocolate Table`.`Quantity_Available` - '2'
+WHERE `Chocolate Table`.`Chocolate_ID` = '00002202';
+
+-- Insert order details
+INSERT INTO `Orders Table` (`Orders Table`.`Customer_ID`, `Orders Table`.`Chocolate_ID`, 
+						    `Orders Table`.`Order_Date`, `Orders Table`.`Quantity_Ordered`, 
+						    `Orders Table`.`Total_Price_Sold`)
+VALUES (0001, 00002202, '2023-05-05', 2, 20.00);
+
+-- COMMIT TRANSACTION;
