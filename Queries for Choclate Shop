@@ -35,7 +35,6 @@ GROUP BY `Customer Table`.`Customer_ID`, 'Customer_Name'
 HAVING 'Total_Orders' > 1
 ORDER BY 'Total_Orders' DESC;
 
-
 -- 5.Query to Calculate Average Order Value:
 
 SELECT AVG(`Orders Table`.`Total_Price_Sold`) AS 'Average_Order_Value'
