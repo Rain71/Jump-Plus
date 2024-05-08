@@ -1,0 +1,3 @@
+SELECT `Chocolate_ID`, `Name`, `Quantity_Available`
+FROM `Chocolate Table` 
+WHERE `Quantity_Available` < '10';
