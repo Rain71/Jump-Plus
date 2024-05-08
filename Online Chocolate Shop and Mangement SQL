@@ -108,6 +108,7 @@ FROM `Chocolate Table`
 WHERE `Quantity_Available` < '10';
 
 -- --------------------------------------------------------
+
 ADVANCED SQL TECHINQUES FROM THIS PROJECT
 
 A.Implement transactions to ensure atomicity and consistency during order processing:
@@ -240,3 +241,4 @@ ALTER ROLE 'Manager' ADD MEMBER ['manager_user'];
 ALTER ROLE 'Employee' ADD MEMBER ['employee_user'];
 
 -- --------------------------------------------------------
+
