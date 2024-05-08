@@ -67,3 +67,22 @@ LIMIT 1;
 SELECT SUM(`Total_Price_Sold`) AS 'Total_Revenue'
 FROM `Orders Table`
 WHERE `Order_Date` BETWEEN '2023-02-09' AND '2023-10-09';
+
+-- 10.Query For Indexes:
+
+-- Before optimization (without indexes)
+
+SELECT * 
+FROM `Orders Table` 
+WHERE `Customer_ID` = 11111
+ORDER BY `Order_Date` DESC;
+
+-- After optimization (with appropriate indexes)
+
+CREATE INDEX IDX_Customer_ID ON `Orders Table`(`Order_ID`);
+CREATE INDEX IDX_Order_Date ON `Orders Table`(`Order_Date`DESC);
+
+SELECT * 
+FROM `Orders Table` 
+WHERE `Customer_ID` = 11111
+ORDER BY `Order_Date` DESC;
