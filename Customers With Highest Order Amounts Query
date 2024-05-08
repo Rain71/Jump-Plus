@@ -1,5 +1,0 @@
-SELECT `Customer_ID`, SUM(`Total_Price_Sold`) AS 'Total_Amount_Spent'
-FROM `Orders Table`
-GROUP BY `Customer_ID`
-ORDER BY 'Total_Amount_Spent' DESC
-LIMIT 1;
