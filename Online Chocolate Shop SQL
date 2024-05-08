@@ -1,0 +1,241 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: sql3.freesqldatabase.com
+-- Generation Time: May 08, 2024 at 07:45 AM
+-- Server version: 5.5.54-0ubuntu0.12.04.1
+-- PHP Version: 7.0.33-0ubuntu0.16.04.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `sql3704477`
+--
+
+--
+-- Dumping data for table `Chocolate Table`
+--
+
+INSERT INTO `Chocolate Table` (`Chocolate_ID`, `Name`, `Descrption`, `Price`, `Quantity_Available`) VALUES
+('00001101', 'Godiva', 'Crunchy Chocolate', '30', 18),
+('00002202', 'Hersey Kisses Choclate', 'Milk Chocolate', '10', 20),
+('00003303', 'Hersey Choclate Bar', 'Milk Chocolate', '5', 1),
+('00004404', 'Snickers', 'Crunchy Chocolate', '6', 5),
+('00005505', 'KitKat', 'Crunchy Chocolate', '3', 3);
+
+--
+-- Dumping data for table `Customer Table`
+--
+
+INSERT INTO `Customer Table` (`Customer_ID`, `First_Name`, `Last_Name`, `Email`) VALUES
+('0001', 'Rain', 'Granger', 'Test11@test1.com'),
+('0002', 'Donald', 'Duck', 'Test21@test2.com'),
+('0003', 'James', 'Pete', 'Test31@test3.com'),
+('0004', 'Jessica', 'Smith', 'Test41@test4.com');
+
+--
+-- Dumping data for table `Orders Table`
+--
+
+INSERT INTO `Orders Table` (`Order_ID`, `Customer_ID`, `Chocolate_ID`, `Order_Date`, `Quantity_Ordered`, `Total_Price_Sold`) VALUES
+(11111, '0001', '00002202', '2023-05-05', 2, '20'),
+(22222, '0004', '00003303', '2023-02-09', 1, '5'),
+(33333, '0002', '00001101', '2023-07-05', 3, '90'),
+(44444, '0003', '00004404', '2023-10-09', 6, '36'),
+(55555, '0003', '00005505', '2023-05-14', 2, '6');
+
+--
+-- Dumping data for table `Roles Table`
+--
+
+INSERT INTO `Roles Table` (`Role_ID`, `Role Name`) VALUES
+('01', 'Admin'),
+('02', 'Manager'),
+('03', 'Employee');
+
+--
+-- Dumping data for table `Users Table`
+--
+
+INSERT INTO `Users Table` (`User_ID`, `Username`, `Password`, `Role_ID`) VALUES
+('010101', 'Mask11', 'pass111', '01'),
+('020202', 'Mask22', 'Pass222', '02'),
+('030303', 'Mask33', 'pass333', '03');
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INTERMIDATE SQL TECHINQUES FROM THIS PROJECT
+
+1.Top-selling chocolate Query
+
+SELECT `Chocolate Table`.`Name` AS 'Chocolate_Name', SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Sold'
+FROM `Chocolate Table`
+JOIN `Orders Table` ON `Chocolate Table`.`Chocolate_ID` = `Orders Table`.`Chocolate_ID`
+GROUP BY  `Chocolate Table`.`Name`
+ORDER BY 'Total_Quantity_Sold' DESC;
+
+2.Customers with the highest order amounts Query
+
+SELECT `Customer_ID`, SUM(`Total_Price_Sold`) AS 'Total_Amount_Spent'
+FROM `Orders Table`
+GROUP BY `Customer_ID`
+ORDER BY 'Total_Amount_Spent' DESC
+LIMIT 1;
+
+3.Total revenue generated over a specific period Query
+
+SELECT SUM(`Total_Price_Sold`) AS 'Total_Revenue'
+FROM `Orders Table`
+WHERE `Order_Date` BETWEEN '2023-02-09' AND '2023-10-09';
+
+4.Chocolate with low inventory levels Query
+
+SELECT `Chocolate_ID`, `Name`, `Quantity_Available`
+FROM `Chocolate Table` 
+WHERE `Quantity_Available` < '10';
+-- --------------------------------------------------------
+ADVANCED SQL TECHINQUES FROM THIS PROJECT
+
+A.Implement transactions to ensure atomicity and consistency during order processing:
+
+BEGIN TRANSACTION;
+
+1. Insert new order details into the Orders table
+
+INSERT INTO `Orders Table` (`Customer_ID`, `Chocolate_ID`, `Order_Date`, `Quantity_Ordered`, `Total_Price_Sold`)
+VALUES (0001, 00002202, '2023-05-05', 2, 20.00)
+
+2. Update the quantity_available in the Chocolate table
+
+UPDATE `Chocolate Table`
+SET `Quantity_Available` = `Quantity_Available` - 2
+WHERE `Chocolate_ID` = 00002202;
+
+3. Check if the quantity_available is non-negative after the update
+
+SELECT `Quantity_Available`
+FROM `Chocolate Table`
+WHERE `Chocolate_ID` = 00002202;
+
+4. If the quantity_available is negative, rollback the transaction 
+   else the quantity_available is non-negative, commit the transaction
+
+IF (SELECT `Quantity_Available` FROM `Chocolate Table` WHERE `Chocolate_ID` = 00002202;)
+BEGIN
+	ROLLBACK TRANSACTION;
+        PRINT 'Order processing failed due to insufficient inventory.';
+END
+ELSE
+BEGIN
+	COMMIT TRANSACTION;
+        PRINT 'Order processed successfully.';
+END
+
+
+B.Develop complex queries to answer specific business questions(e.g., identifying patterns in customer behavior):
+
+1. Querey Top Selling Chocolate
+
+SELECT `Chocolate Table`.`Name` AS 'Chocolate_Name', SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Sold'
+FROM `Chocolate Table`
+JOIN `Orders Table` ON `Chocolate Table`.`Chocolate_ID` = `Orders Table`.`Chocolate_ID`
+GROUP BY  `Chocolate Table`.`Name`
+ORDER BY 'Total_Quantity_Sold' DESC;
+
+2. Querey Top Selling Customer
+
+SELECT `Customer Table`.`Customer_ID`, 
+		CONCAT(`Customer Table`.`First_Name`, ' ', `Customer Table`.`Last_Name`) AS 'Customer_Name', 
+		SUM(`Orders Table`.`Total_Price_Sold`) AS 'Total_Spent'
+FROM `Customer Table` 
+JOIN `Orders Table` ON `Customer Table`.`Customer_ID` = `Orders Table`.`Customer_ID`
+GROUP BY `Customer Table`.`Customer_ID`, 'Customer_Name'
+ORDER BY 'Total_Spent' DESC;
+
+3.Query to Analyze Purchase Trends Over Time:
+
+SELECT DATE_FORMAT(`Orders Table`.`Order_Date`, '2023-05') AS 'Order_Month', 
+		SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Ordered'
+FROM `Orders Table`
+GROUP BY 'Order_Month'
+ORDER BY 'Order_Month';
+
+4.Query to Identify Repeat Customers:
+
+SELECT `Customer Table`.`Customer_ID`, 
+		CONCAT(`Customer Table`.`First_Name`, ' ', `Customer Table`.`Last_Name`) AS 'Customer_Name', 
+		COUNT(`Orders Table`.`Order_ID`) AS 'Total_Orders'
+FROM `Customer Table` 
+JOIN `Orders Table` ON `Customer Table`.`Customer_ID` = `Orders Table`.`Customer_ID`
+GROUP BY `Customer Table`.`Customer_ID`, 'Customer_Name'
+HAVING 'Total_Orders' > 1
+ORDER BY 'Total_Orders' DESC;
+
+5.Query to Calculate Average Order Value:
+
+SELECT AVG(`Orders Table`.`Total_Price_Sold`) AS 'Average_Order_Value'
+FROM `Orders Table`;
+ 
+
+C.Optimize query performance by analyzing query execution plans and indexing strategies
+
+
+D.Implement role-based access control to restrict access to sensitive data and operations
+
+1.Create Roles:
+
+CREATE ROLE 'Admin';
+CREATE ROLE 'Manager';
+CREATE ROLE 'Employee';
+
+2.Grant Permissions to Roles:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON 'dbo.SensitiveTable' TO 'Admin';
+GRANT SELECT, INSERT, UPDATE ON 'dbo.NonSensitiveTable' TO 'Manager';
+GRANT SELECT ON 'dbo.NonSensitiveTable' TO 'Employee';
+
+3.Assign Users to Roles:
+
+ALTER ROLE 'Admin' ADD MEMBER ['admin_user'];
+ALTER ROLE 'Manager' ADD MEMBER ['manager_user'];
+ALTER ROLE 'Employee' ADD MEMBER ['employee_user'];
+
+4.Testing Access:
+
+-create roles
+
+CREATE ROLE 'Admin';
+CREATE ROLE 'Manager';
+CREATE ROLE 'Employee';
+
+-grant permission
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON 'dbo.SensitiveTable' TO 'Admin';
+GRANT SELECT, INSERT, UPDATE ON 'dbo.NonSensitiveTable' TO 'Manager';
+GRANT SELECT ON 'dbo.NonSensitiveTable' TO 'Employee';
+
+-create users
+CREATE LOGIN ['admin_user'] WITH PASSWORD = 'pass111';
+CREATE LOGIN ['manager_user'] WITH PASSWORD = 'pass222';
+CREATE LOGIN ['employee_user'] WITH PASSWORD = 'pass333';
+
+- Assign users to roles
+
+ALTER ROLE 'Admin' ADD MEMBER ['admin_user'];
+ALTER ROLE 'Manager' ADD MEMBER ['manager_user'];
+ALTER ROLE 'Employee' ADD MEMBER ['employee_user'];
+
+-- --------------------------------------------------------
