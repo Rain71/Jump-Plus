@@ -1,0 +1,22 @@
+-- create roles
+
+CREATE ROLE 'Admin';
+CREATE ROLE 'Manager';
+CREATE ROLE 'Employee';
+
+-- grant permission
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON 'dbo.SensitiveTable' TO 'Admin';
+GRANT SELECT, INSERT, UPDATE ON 'dbo.NonSensitiveTable' TO 'Manager';
+GRANT SELECT ON 'dbo.NonSensitiveTable' TO 'Employee';
+
+-- create users
+CREATE LOGIN ['admin_user'] WITH PASSWORD = 'pass111';
+CREATE LOGIN ['manager_user'] WITH PASSWORD = 'pass222';
+CREATE LOGIN ['employee_user'] WITH PASSWORD = 'pass333';
+
+-- Assign users to roles
+
+ALTER ROLE 'Admin' ADD MEMBER ['admin_user'];
+ALTER ROLE 'Manager' ADD MEMBER ['manager_user'];
+ALTER ROLE 'Employee' ADD MEMBER ['employee_user'];
