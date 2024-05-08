@@ -83,6 +83,8 @@ COMMIT;
 
 INTERMIDATE SQL TECHINQUES FROM THIS PROJECT
 
+-- --------------------------------------------------------
+
 1.Top-selling chocolate Query
 
 SELECT `Chocolate Table`.`Name` AS 'Chocolate_Name', SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Sold'
