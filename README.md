@@ -43,10 +43,12 @@ Project Components:
     ii.	Customers with the highest order amounts
     iii.	Total revenue generated over a specific period
     iv.	Chocolate with low inventory levels
-5.	Advanced Features:
+   b.	Utilize JOIN operations to fetch data from multiple related tables
+6.	Advanced Features:
   a.	Implement transactions to ensure atomicity and consistency during order processing
   b.	Develop complex queries to answer specific business questions(e.g., identifying patterns in customer behavior)
-  c.	Implement role-based access control to restrict access to sensitive data and operations
+  c.  Optimize query performance by analyzing query execution plans and indexing strategies
+  d.	Implement role-based access control to restrict access to sensitive data and operations
 7.	Documentation and Presentation:
   a.	Document the database schema, including tables, relationships, and constraints
   b.	Provide explanations for the implemented features and query optimization techniques
