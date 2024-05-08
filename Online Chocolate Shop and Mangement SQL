@@ -115,6 +115,8 @@ WHERE `Quantity_Available` < '10';
 
 ADVANCED SQL TECHINQUES FROM THIS PROJECT
 
+-- --------------------------------------------------------
+
 A.Implement transactions to ensure atomicity and consistency during order processing:
 
 BEGIN TRANSACTION;
@@ -150,6 +152,7 @@ BEGIN
         PRINT 'Order processed successfully.';
 END
 
+-- --------------------------------------------------------
 
 B.Develop complex queries to answer specific business questions(e.g., identifying patterns in customer behavior):
 
@@ -195,6 +198,7 @@ ORDER BY 'Total_Orders' DESC;
 SELECT AVG(`Orders Table`.`Total_Price_Sold`) AS 'Average_Order_Value'
 FROM `Orders Table`;
  
+-- --------------------------------------------------------
 
 C.Optimize query performance by analyzing query execution plans and indexing strategies
 
@@ -215,6 +219,7 @@ FROM `Orders Table`
 WHERE `Customer_ID` = 11111
 ORDER BY `Order_Date` DESC;
 
+-- --------------------------------------------------------
 
 D.Implement role-based access control to restrict access to sensitive data and operations
 
@@ -260,6 +265,4 @@ CREATE LOGIN ['employee_user'] WITH PASSWORD = 'pass333';
 ALTER ROLE 'Admin' ADD MEMBER ['admin_user'];
 ALTER ROLE 'Manager' ADD MEMBER ['manager_user'];
 ALTER ROLE 'Employee' ADD MEMBER ['employee_user'];
-
--- --------------------------------------------------------
 
