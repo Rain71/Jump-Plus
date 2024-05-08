@@ -1,5 +1,0 @@
-SELECT `Chocolate Table`.`Name` AS 'Chocolate_Name', SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Sold'
-FROM `Chocolate Table`
-JOIN `Orders Table` ON `Chocolate Table`.`Chocolate_ID` = `Orders Table`.`Chocolate_ID`
-GROUP BY  `Chocolate Table`.`Name`
-ORDER BY 'Total_Quantity_Sold' DESC;
