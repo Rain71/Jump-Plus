@@ -146,11 +146,11 @@ INTERMIDATE SQL TECHINQUES FROM THIS PROJECT
 
 1.Top-selling chocolate Query
 
-SELECT `Chocolate_ID`, SUM(`Quantity_Ordered`) AS 'Total_Quantity_Sold' 
-FROM `Orders Table`
-GROUP BY `Chocolate_ID` 
-ORDER BY 'Total_Quantity_Sold' DESC 
-LIMIT 1;
+SELECT `Chocolate Table`.`Name` AS 'Chocolate_Name', SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Sold'
+FROM `Chocolate Table`
+JOIN `Orders Table` ON `Chocolate Table`.`Chocolate_ID` = `Orders Table`.`Chocolate_ID`
+GROUP BY  `Chocolate Table`.`Name`
+ORDER BY 'Total_Quantity_Sold' DESC;
 
 2.Customers with the highest order amounts Query
 
