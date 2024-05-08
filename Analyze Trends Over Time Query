@@ -1,5 +1,0 @@
-SELECT DATE_FORMAT(`Orders Table`.`Order_Date`, '2023-05') AS 'Order_Month', 
-		SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Ordered'
-FROM `Orders Table`
-GROUP BY 'Order_Month'
-ORDER BY 'Order_Month';
