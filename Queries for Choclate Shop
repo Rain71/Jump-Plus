@@ -63,18 +63,7 @@ GROUP BY `Customer_ID`
 ORDER BY 'Total_Amount_Spent' DESC
 LIMIT 1;
 
--- 9.Query to Identify Repeating Customers Query:
-
-SELECT `Customer Table`.`Customer_ID`, 
-		CONCAT(`Customer Table`.`First_Name`, ' ', `Customer Table`.`Last_Name`) AS 'Customer_Name', 
-		COUNT(`Orders Table`.`Order_ID`) AS 'Total_Orders'
-FROM `Customer Table` 
-JOIN `Orders Table` ON `Customer Table`.`Customer_ID` = `Orders Table`.`Customer_ID`
-GROUP BY `Customer Table`.`Customer_ID`, 'Customer_Name'
-HAVING 'Total_Orders' > 1
-ORDER BY 'Total_Orders' DESC;
-
--- 10.Total Revenue Generated Over A Specific Period Query
+-- 9.Total Revenue Generated Over A Specific Period Query
 
 SELECT SUM(`Total_Price_Sold`) AS 'Total_Revenue'
 FROM `Orders Table`
