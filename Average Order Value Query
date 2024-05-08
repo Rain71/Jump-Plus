@@ -1,2 +1,0 @@
-SELECT AVG(`Orders Table`.`Total_Price_Sold`) AS 'Average_Order_Value'
-FROM `Orders Table`;
