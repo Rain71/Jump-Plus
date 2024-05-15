@@ -87,7 +87,7 @@ FROM `Orders Table`
 WHERE `Customer_ID` = 11111
 ORDER BY `Order_Date` DESC;
 
--- 11.Query For The Chocolate Shop Transaction:
+-- 11.Query For a Chocolate Shop Transaction:
 
 -- BEGIN TRANSACTION;
 
