@@ -1,13 +1,15 @@
--- 1. Query Top Selling Chocolate
+-- 1. Query Top Selling Chocolate:
 
+SELECT '1. Query Top Selling Chocolate:';
 SELECT `Chocolate Table`.`Name` AS 'Chocolate_Name', SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Sold'
 FROM `Chocolate Table`
 JOIN `Orders Table` ON `Chocolate Table`.`Chocolate_ID` = `Orders Table`.`Chocolate_ID`
 GROUP BY  `Chocolate Table`.`Name`
 ORDER BY 'Total_Quantity_Sold' DESC;
 
--- 2. Query Top Selling Customer
+-- 2. Query Top Selling Customer:
 
+SELECT '2. Query Top Selling Customer:';
 SELECT `Customer Table`.`Customer_ID`, 
 		CONCAT(`Customer Table`.`First_Name`, ' ', `Customer Table`.`Last_Name`) AS 'Customer_Name', 
 		SUM(`Orders Table`.`Total_Price_Sold`) AS 'Total_Spent'
@@ -18,6 +20,7 @@ ORDER BY 'Total_Spent' DESC;
 
 -- 3.Query to Analyze Purchase Trends Over Time:
 
+SELECT '3.Query to Analyze Purchase Trends Over Time:';
 SELECT DATE_FORMAT(`Orders Table`.`Order_Date`, '2023-05') AS 'Order_Month', 
 		SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Ordered'
 FROM `Orders Table`
@@ -26,6 +29,7 @@ ORDER BY 'Order_Month';
 
 -- 4.Query to Identify Repeat Customers:
 
+SELECT '4.Query to Identify Repeat Customers:';
 SELECT `Customer Table`.`Customer_ID`, 
 		CONCAT(`Customer Table`.`First_Name`, ' ', `Customer Table`.`Last_Name`) AS 'Customer_Name', 
 		COUNT(`Orders Table`.`Order_ID`) AS 'Total_Orders'
@@ -36,12 +40,13 @@ HAVING 'Total_Orders' > 1
 ORDER BY 'Total_Orders' DESC;
 
 -- 5.Query to Calculate Average Order Value:
-
+SELECT '5.Query to Calculate Average Order Value:';
 SELECT AVG(`Orders Table`.`Total_Price_Sold`) AS 'Average_Order_Value'
 FROM `Orders Table`;
 
 -- 6.Query to Analyze Trends Over Time:
 
+SELECT 'Query to Analyze Trends Over Time:';
 SELECT DATE_FORMAT(`Orders Table`.`Order_Date`, '2023-05') AS 'Order_Month', 
 		SUM(`Orders Table`.`Quantity_Ordered`) AS 'Total_Quantity_Ordered'
 FROM `Orders Table`
@@ -50,12 +55,14 @@ ORDER BY 'Order_Month';
 
 -- 7.Query to Analyze Chocolate with Low Inventory:
 
+SELECT 'Query to Analyze Chocolate with Low Inventory:';
 SELECT `Chocolate_ID`, `Name`, `Quantity_Available`
 FROM `Chocolate Table` 
 WHERE `Quantity_Available` < '10';
 
 -- 8.Query to Get Customers With Highest Order Amounts:
 
+SELECT '8.Query to Get Customers With Highest Order Amounts:';
 SELECT `Customer_ID`, SUM(`Total_Price_Sold`) AS 'Total_Amount_Spent'
 FROM `Orders Table`
 GROUP BY `Customer_ID`
@@ -64,11 +71,14 @@ LIMIT 1;
 
 -- 9.Query to Get Total Revenue Generated Over A Specific Period:
 
+SELECT '9.Query to Get Total Revenue Generated Over A Specific Period:';
 SELECT SUM(`Total_Price_Sold`) AS 'Total_Revenue'
 FROM `Orders Table`
 WHERE `Order_Date` BETWEEN '2023-02-09' AND '2023-10-09';
 
 -- 10.Query For Indexes:
+
+SELECT '10.Query For Indexes:';
 
 -- Before optimization (without indexes)
 
@@ -88,6 +98,8 @@ WHERE `Customer_ID` = 11111
 ORDER BY `Order_Date` DESC;
 
 -- 11.Query For a Chocolate Shop Transaction:
+
+SELECT '11.Query For a Chocolate Shop Transaction:';
 
 -- BEGIN TRANSACTION;
 
