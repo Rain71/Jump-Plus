@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: sql3.freesqldatabase.com
--- Generation Time: May 15, 2024 at 09:05 PM
+-- Generation Time: May 16, 2024 at 03:59 PM
 -- Server version: 5.5.54-0ubuntu0.12.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.16
 
@@ -21,6 +21,131 @@ SET time_zone = "+00:00";
 --
 -- Database: `sql3704477`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Chocolate Table`
+--
+
+CREATE TABLE `Chocolate Table` (
+  `Chocolate_ID` varchar(8) NOT NULL,
+  `Name` varchar(40) NOT NULL,
+  `Descrption` varchar(40) NOT NULL,
+  `Price` decimal(5,0) NOT NULL,
+  `Quantity_Available` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Chocolate Table`
+--
+
+INSERT INTO `Chocolate Table` (`Chocolate_ID`, `Name`, `Descrption`, `Price`, `Quantity_Available`) VALUES
+('00001101', 'Godiva', 'Crunchy Chocolate', '30', 18),
+('00002202', 'Hersey Kisses Choclate', 'Milk Chocolate', '10', 2),
+('00003303', 'Hersey Choclate Bar', 'Milk Chocolate', '5', 1),
+('00004404', 'Snickers', 'Crunchy Chocolate', '6', 5),
+('00005505', 'KitKat', 'Crunchy Chocolate', '3', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Customer Table`
+--
+
+CREATE TABLE `Customer Table` (
+  `Customer_ID` varchar(4) NOT NULL,
+  `First_Name` varchar(20) NOT NULL,
+  `Last_Name` varchar(20) NOT NULL,
+  `Email` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Customer Table`
+--
+
+INSERT INTO `Customer Table` (`Customer_ID`, `First_Name`, `Last_Name`, `Email`) VALUES
+('0001', 'Rain', 'Granger', 'Test11@test1.com'),
+('0002', 'Donald', 'Duck', 'Test21@test2.com'),
+('0003', 'James', 'Pete', 'Test31@test3.com'),
+('0004', 'Jessica', 'Smith', 'Test41@test4.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `DBO Non Sensitive Table`
+--
+
+CREATE TABLE `DBO Non Sensitive Table` (
+  `Chocolate_ID` varchar(8) NOT NULL,
+  `Name` text NOT NULL,
+  `Descrption` text NOT NULL,
+  `Price` decimal(5,0) NOT NULL,
+  `Quantity_Available` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `DBO Non Sensitive Table`
+--
+
+INSERT INTO `DBO Non Sensitive Table` (`Chocolate_ID`, `Name`, `Descrption`, `Price`, `Quantity_Available`) VALUES
+('00001101', 'Godiva', 'Crunchy Chocolate', '31', 18),
+('00002202', 'Hersey Kisses Chocolate', 'Milk Chocolate', '10', 2),
+('00003303', 'Hersey Chocolate Bar', 'Milk Chocolate', '5', 1),
+('00004404', 'Snickers', 'Crunchy Chocolate', '6', 5),
+('00005505', 'KitKat', 'Crunchy Chocolate', '3', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `DBO Sensitive Table`
+--
+
+CREATE TABLE `DBO Sensitive Table` (
+  `Customer_ID` varchar(4) NOT NULL,
+  `First Name` varchar(20) NOT NULL,
+  `Last Name` varchar(20) NOT NULL,
+  `Email` varchar(20) NOT NULL,
+  `Credit_Card` varchar(14) NOT NULL,
+  `Registration _Date` date NOT NULL,
+  `Last_Login` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `DBO Sensitive Table`
+--
+
+INSERT INTO `DBO Sensitive Table` (`Customer_ID`, `First Name`, `Last Name`, `Email`, `Credit_Card`, `Registration _Date`, `Last_Login`) VALUES
+('0001', 'Rain', 'Granger', 'Test11@test1.com', 'CreditCard1111', '2023-05-01', '2023-12-20'),
+('0002', 'Donald', 'Duck', 'Test21@test1.com', 'CreditCard2222', '2023-07-01', '2023-10-21'),
+('0003', 'James', 'Pete', 'Test31@test1.com', 'CreditCard3333', '2023-05-04', '2023-07-17'),
+('0004', 'Jessica', 'Smith', 'Test41@test1.com', 'CreditCard4444', '2023-02-01', '2023-10-20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Orders Table`
+--
+
+CREATE TABLE `Orders Table` (
+  `Order_ID` int(5) NOT NULL,
+  `Customer_ID` varchar(4) NOT NULL,
+  `Chocolate_ID` varchar(8) NOT NULL,
+  `Order_Date` date NOT NULL,
+  `Quantity_Ordered` int(5) NOT NULL,
+  `Total_Price_Sold` decimal(4,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Orders Table`
+--
+
+INSERT INTO `Orders Table` (`Order_ID`, `Customer_ID`, `Chocolate_ID`, `Order_Date`, `Quantity_Ordered`, `Total_Price_Sold`) VALUES
+(11111, '0001', '00002202', '2023-05-05', 2, '20'),
+(22222, '0004', '00003303', '2023-02-09', 1, '5'),
+(33333, '0002', '00001101', '2023-07-05', 3, '90'),
+(44444, '0003', '00004404', '2023-10-09', 6, '36'),
+(55555, '0003', '00005505', '2023-05-14', 2, '6');
 
 -- --------------------------------------------------------
 
@@ -45,15 +170,129 @@ INSERT INTO `Reviews Table` (`Review_ID`, `Customer_ID`, `Chocolate ID`, `Rating
 ('000A', '0002', '00001101', 9, 'The Godiva was a delicious to eat', '2023-07-12'),
 ('000B', '0003', '00004404', 7, 'The Chocolate was a very Sweet', '2023-10-13');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Roles Table`
+--
+
+CREATE TABLE `Roles Table` (
+  `Role_ID` varchar(2) NOT NULL,
+  `Role Name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Roles Table`
+--
+
+INSERT INTO `Roles Table` (`Role_ID`, `Role Name`) VALUES
+('01', 'Admin'),
+('02', 'Manager'),
+('03', 'Employee'),
+('04', 'Customer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Users Table`
+--
+
+CREATE TABLE `Users Table` (
+  `User_ID` varchar(6) NOT NULL,
+  `Username` varchar(10) NOT NULL,
+  `Password` varchar(10) NOT NULL,
+  `Role_ID` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Users Table`
+--
+
+INSERT INTO `Users Table` (`User_ID`, `Username`, `Password`, `Role_ID`) VALUES
+('010101', 'Mask11', 'pass111', '01'),
+('020202', 'Mask22', 'Pass222', '02'),
+('030303', 'Mask33', 'pass333', '03'),
+('040404', 'Mask44', 'Pass444', '04');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `Chocolate Table`
+--
+ALTER TABLE `Chocolate Table`
+  ADD PRIMARY KEY (`Chocolate_ID`);
+
+--
+-- Indexes for table `Customer Table`
+--
+ALTER TABLE `Customer Table`
+  ADD PRIMARY KEY (`Customer_ID`);
+
+--
+-- Indexes for table `DBO Non Sensitive Table`
+--
+ALTER TABLE `DBO Non Sensitive Table`
+  ADD PRIMARY KEY (`Chocolate_ID`);
+
+--
+-- Indexes for table `DBO Sensitive Table`
+--
+ALTER TABLE `DBO Sensitive Table`
+  ADD PRIMARY KEY (`Customer_ID`);
+
+--
+-- Indexes for table `Orders Table`
+--
+ALTER TABLE `Orders Table`
+  ADD PRIMARY KEY (`Order_ID`),
+  ADD KEY `Customer_ID` (`Customer_ID`),
+  ADD KEY `Chocolate_ID` (`Chocolate_ID`),
+  ADD KEY `IDX_Customer_ID` (`Order_ID`),
+  ADD KEY `IDX_Order_Date` (`Order_Date`);
 
 --
 -- Indexes for table `Reviews Table`
 --
 ALTER TABLE `Reviews Table`
   ADD PRIMARY KEY (`Review_ID`);
+
+--
+-- Indexes for table `Roles Table`
+--
+ALTER TABLE `Roles Table`
+  ADD PRIMARY KEY (`Role_ID`);
+
+--
+-- Indexes for table `Users Table`
+--
+ALTER TABLE `Users Table`
+  ADD PRIMARY KEY (`User_ID`),
+  ADD KEY `Role_ID` (`Role_ID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Customer Table`
+--
+ALTER TABLE `Customer Table`
+  ADD CONSTRAINT `Customer ID` FOREIGN KEY (`Customer_ID`) REFERENCES `Orders Table` (`Customer_ID`);
+
+--
+-- Constraints for table `Orders Table`
+--
+ALTER TABLE `Orders Table`
+  ADD CONSTRAINT `Orders Table_ibfk_1` FOREIGN KEY (`Chocolate_ID`) REFERENCES `Chocolate Table` (`Chocolate_ID`),
+  ADD CONSTRAINT `Customer_ID` FOREIGN KEY (`Customer_ID`) REFERENCES `Customer Table` (`Customer_ID`);
+
+--
+-- Constraints for table `Users Table`
+--
+ALTER TABLE `Users Table`
+  ADD CONSTRAINT `Role_ID` FOREIGN KEY (`Role_ID`) REFERENCES `Roles Table` (`Role_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
